@@ -1,7 +1,7 @@
 
-#1. In 32-bit mode, aside from the stack pointer (ESP), what other register points to variables on the stack?
+1. In 32-bit mode, aside from the stack pointer (ESP), what other register points to variables on the stack?
     32비트 모드에서 스택 포인터(ESP) 외에 스택에 있는 변수를 가리키는 또 다른 레지스터는 무엇인가?\
- ##답:EBP (Base Pointer)
+ 답:EBP (Base Pointer)
    32비트 모드에서 ESP와 함께 스택의 변수를 가리키는 데 사용되는 레지스터이다.
 
 2. Name at least four CPU status flags.
