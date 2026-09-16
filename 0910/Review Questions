@@ -1,4 +1,4 @@
-#chap2
+chap2
 
 1. In 32-bit mode, aside from the stack pointer (ESP), what other register points to variables on the stack?
     32비트 모드에서 스택 포인터(ESP) 외에 스택에 있는 변수를 가리키는 또 다른 레지스터는 무엇인가?\
@@ -133,3 +133,4 @@
      게임 프로그램은 왜 종종 사운드 출력을 사운드 카드의 하드웨어 포트로 직접 보내는가?
  답:속도와 효율성 때문
    게임 프로그램이 사운드 카드의 하드웨어 포트에 직접 데이터를 보내면 운영체제 등의 중간 계층을 거치는 오버헤드를 줄여 빠르게 사운드 하드웨어를 제어할 수 있기 때문이다.
+
