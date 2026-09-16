@@ -1,78 +1,104 @@
 
  1. In 32-bit mode, aside from the stack pointer (ESP), what other register points to variables on the stack?
-    32비트 모드에서 스택 포인터(ESP) 외에 스택에 있는 변수를 가리키는 또 다른 레지스터는 무엇인가?
+    32비트 모드에서 스택 포인터(ESP) 외에 스택에 있는 변수를 가리키는 또 다른 레지스터는 무엇인가?\
+ 답:32비트 모드에서 ESP와 함께 스택의 변수를 가리키는 데 사용되는 레지스터이다.
 
 2. Name at least four CPU status flags.
     CPU 상태 플래그를 최소 4개 쓰시오.
+ 답:CF, ZF, SF, OF
 
 3. Which flag is set when the result of an _unsigned_ arithmetic operation is too large to fit into the destination?
     _부호 없는(unsigned)_ 산술 연산의 결과가 목적지에 저장할 수 있는 범위보다 너무 클 때 설정되는 플래그는 무엇인가?
+ 답:CF(Carry Flag)
 
 4. Which flag is set when the result of a _signed_ arithmetic operation is either too large or too small to fit into the destination?
     _부호 있는(signed)_ 산술 연산의 결과가 목적지에 저장할 수 있는 범위보다 너무 크거나 작을 때 설정되는 플래그는 무엇인가?
+ 답: OF (Overflow Flag)
 
 5. (True/False) When a register operand size is 32 bits and the REX prefix is used, the R8D register is available for programs to use.
     (참/거짓) 레지스터 피연산자의 크기가 32비트이고 REX 프리픽스가 사용될 때, 프로그램에서 R8D 레지스터를 사용할 수 있다.
+ 답:True (참)
 
 6. Which flag is set when an arithmetic or logical operation generates a negative result?
     산술 연산이나 논리 연산의 결과가 음수가 되었을 때 설정되는 플래그는 무엇인가?
+ 답:SF (Sign Flag)
 
 7. Which part of the CPU performs floating-point arithmetic?
     CPU의 어느 부분이 부동소수점 연산을 수행하는가?
+ 답: FPU (Floating-Point Unit)
 
 8. On a 32-bit processor, how many bits are contained in each floating-point data register?
     32비트 프로세서에서 각 부동소수점 데이터 레지스터에는 몇 비트가 들어 있는가?
+ 답:80 bits
 
 9. (True/False) The x86-64 instruction set is backward-compatible with the x86 instruction set.
     (참/거짓) x86-64 명령어 집합은 x86 명령어 집합과 하위 호환된다.
+ 답:True (참)
 
 10. (True/False) In current 64-bit chip implementations, all 64 bits are used for addressing.
      (참/거짓) 현재의 64비트 칩 구현에서는 64비트가 모두 주소 지정(addressing)에 사용된다.
+ 답:False (거짓)
 
 11. (True/False) The Itanium instruction set is completely different from the x86 instruction set.
      (참/거짓) Itanium 명령어 집합은 x86 명령어 집합과 완전히 다르다.
+ 답:True (참)
 
 12. (True/False) Static RAM is usually less expensive than dynamic RAM.
      (참/거짓) 정적 RAM(SRAM)은 일반적으로 동적 RAM(DRAM)보다 가격이 저렴하다.
+ 답:False (거짓)
 
 13. (True/False) The 64-bit RDI register is available when the REX prefix is used.
      (참/거짓) REX 프리픽스가 사용될 때 64비트 RDI 레지스터를 사용할 수 있다.
+ 답:True (참)
 
 14. (True/False) In native 64-bit mode, you can use 16-bit real mode, but not the virtual-8086 mode.
      (참/거짓) 네이티브 64비트 모드에서는 16비트 리얼 모드는 사용할 수 있지만, virtual-8086 모드는 사용할 수 없다.
+ 답:False (거짓)
 
 15. (True/False) The x86-64 processors have 4 more general-purpose registers than the x86 processors.
      (참/거짓) x86-64 프로세서는 x86 프로세서보다 범용 레지스터를 4개 더 가지고 있다.
+ 답:False (거짓)
 
 16. (True/False) The 64-bit version of Microsoft Windows does not support virtual-8086 mode.
      (참/거짓) 64비트 버전의 Microsoft Windows는 virtual-8086 모드를 지원하지 않는다.
+ 답:True (참)
 
 17. (True/False) DRAM can only be erased using ultraviolet light.
      (참/거짓) DRAM은 자외선을 사용해야만 데이터를 지울 수 있다.
+ 답:False (거짓)
 
 18. (True/False) In 64-bit mode, you can use up to eight floating-point registers.
      (참/거짓) 64비트 모드에서는 최대 8개의 부동소수점 레지스터를 사용할 수 있다.
+ 답:True (참)
 
 19. (True/False) A bus is a plastic cable that is attached to the motherboard at both ends, but does not sit directly on the motherboard.
      (참/거짓) 버스(bus)는 양쪽 끝이 마더보드에 연결되어 있지만 마더보드에 직접 장착되어 있지 않은 플라스틱 케이블이다.
+ 답:False (거짓)
 
 20. (True/False) CMOS RAM is the same as static RAM, meaning that it holds its value without any extra power or refresh cycles.
      (참/거짓) CMOS RAM은 정적 RAM과 동일하며, 추가적인 전원 공급이나 리프레시 사이클 없이도 값을 유지한다.
+ 답:False (거짓)
 
 21. (True/False) PCI connectors are used for graphics cards and sound cards.
      (참/거짓) PCI 커넥터는 그래픽 카드와 사운드 카드에 사용된다.
+ 답:True (참)
 
 22. (True/False) The 8259A is a controller that handles external interrupts from hardware devices.
      (참/거짓) 8259A는 하드웨어 장치에서 발생하는 외부 인터럽트를 처리하는 컨트롤러이다.
+ 답:정답: True (참)
 
 23. (True/False) The acronym PCI stands for programmable component interface.
      (참/거짓) PCI라는 약어는 Programmable Component Interface를 의미한다.
+ 답:False (거짓)
 
 24. (True/False) VRAM stands for virtual random access memory.
      (참/거짓) VRAM은 Virtual Random Access Memory의 약자이다.
+ 답:False (거짓)
 
 25. At which level(s) can an assembly language program manipulate input/output?
      어셈블리 언어 프로그램은 어떤 수준(level)에서 입출력(I/O)을 조작할 수 있는가?
+ 답:하드웨어 수준(Hardware level)과 운영체제 수준(OS level)
 
 26. Why do game programs often send their sound output directly to the sound card's hardware ports?
      게임 프로그램은 왜 종종 사운드 출력을 사운드 카드의 하드웨어 포트로 직접 보내는가?
+ 답:속도와 효율성 때문
