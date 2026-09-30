@@ -1,1 +1,117 @@
+## chap3
 
+1. Provide examples of three different instruction mnemonics.
+  세 가지 서로 다른 명령어 연산 코드(mnemonic)의 예를 제시하시오.
+  정답: MOV, ADD, SUB
+
+2. What is a calling convention, and how is it used in assembly language declarations?
+  호출 규약(calling convention)이란 무엇이며, 어셈블리어 선언에서 어떻게 사용되는가?
+  정답: 함수/프로시저 호출 시 매개변수 전달 방식, 레지스터 보존 규칙, 스택 정리 책임을 정의하는 규칙입니다. 선언부(예: INVOKE 또는 프로토타입)에서 어떤 규약을 따를지 지정하는 데 사용됩니다.
+
+3. How do you reserve space for the stack in a program?
+  프로그램에서 스택 공간을 어떻게 예약하는가?
+  정답: 프로그램 설정(링커 옵션이나 PE 헤더 설정)을 통해 크기를 지정하거나, 함수 내부에서 스택 포인터(ESP/RSP)를 조작(SUB ESP, N)하여 확보합니다.
+
+4. Explain why the term assembler language is not quite correct.
+  '어셈블러 언어'라는 표현이 완전히 올바르지 않은 이유를 설명하시오.
+  정답: 어셈블러는 코드를 번역하는 프로그램의 이름이므로, 언어의 올바른 명칭은 어셈블리 언어 이기 때문입니다.
+
+5. Explain the difference between big endian and little endian. Also, look up the origins of this term on the Web.
+  빅 엔디안과 리틀 엔디안의 차이점을 설명하시오. 또한 웹에서 이 용어의 유래를 찾아보시오.
+  정답: 빅 엔디안은 상위 바이트부터, 리틀 엔디안은 하위 바이트부터 메모리에 저장하는 방식입니다. 유래는 조너선 스위프트의 소설 《걸리버 여행기》의 달걀 깨기 논쟁에서 유래했습니다.
+
+6. Why might you use a symbolic constant rather than an integer literal in your code?
+  코드에서 정수 리터럴 대신 심볼릭 상수(symbolic constant)를 사용하는 이유는 무엇인가?
+  정답: 가독성을 높이고, 값이 변경될 때 한 곳만 수정하면 되므로 유지보수성이 좋아지기 때문입니다.
+
+7. How is a source file different from a listing file?
+  소스 파일과 리스팅 파일은 어떻게 다른가?
+  정답: 소스 파일은 프로그래머가 작성한 원본 코드(.asm)이고, 리스팅 파일은 어셈블러가 번역 시 기계어, 메모리 주소, 심볼 테이블 등을 함께 포함하여 생성해 주는 텍스트 파일입니다.
+
+8. How are data labels and code labels different?
+  데이터 라벨과 코드 라벨은 어떻게 다른가?
+  정답: 데이터 라벨은 변수/데이터 영역의 주소를 가리키며 콜론 없이 선언되고, 코드 라벨은 제어 흐름을 위한 위치를 가리키며 끝에 콜론(:)이 붙습니다.
+
+9. (True/False): An identifier cannot begin with a numeric digit.
+  (참/거짓): 식별자는 숫자로 시작할 수 없다.
+  정답: True (참)
+
+10. (True/False): A hexadecimal literal may be written as 0x3A.
+    (참/거짓): 16진수 리터럴은 0x3A로 작성될 수 있다.
+    정답: False (거짓)
+
+11. (True/False): Assembly language directives execute at runtime.
+    (참/거짓): 어셈블리 언어 지시어(directive)는 런타임에 실행된다.
+    정답: False (거짓)
+
+12. (True/False): Assembly language directives can be written in any combination of uppercase and lowercase letters.
+    (참/거짓): 어셈블리 언어 지시어는 대소문자를 자유롭게 조합하여 작성할 수 있다.
+    정답: True (참)
+
+13. Name the four basic parts of an assembly language instruction.
+    어셈블리 언어 명령어의 4가지 기본 요소를 쓰시오.
+    정답: Label, Mnemonic, Operand, Comment
+
+14. (True/False): MOV is an example of an instruction mnemonic.
+    (참/거짓): MOV는 명령어 연산 코드의 예이다
+    정답: True (참)
+
+15. (True/False): A code label is followed by a colon (:), but a data label does not end with a colon.
+    (참/거짓): 코드 라벨 뒤에는 콜론(:)이 오지만, 데이터 라벨은 콜론으로 끝나지 않는다.
+    정답: True (참)
+
+16. Show an example of a block comment.
+    블록 주석의 예를 보이시오.
+    정답: COMMENT &여러 줄 주석 예시&
+
+17. Why is it not a good idea to use numeric addresses when writing instructions that access variables?
+    변수에 접근하는 명령어를 작성할 때 숫자 주소를 사용하는 것이 좋지 않은 이유는 무엇인가?
+    정답: 프로그램 수정 시 변수 주소가 바뀌면 일일이 코드를 수정해야 하고 유지보수가 어려워지기 때문입니다.
+
+18. What type of argument must be passed to the ExitProcess procedure?
+    ExitProcess 프로시저에는 어떤 유형의 인자를 전달해야 하는가?
+    정답: 프로그램의 종료 코드를 나타내는 32비트 정수(예: 0)
+
+19. Which directive ends a procedure?
+    프로시저를 끝내는 지시어는 무엇인가?
+    정답: ENDP
+
+20. In 32-bit mode, what is the purpose of the identifier in the END directive?
+    32비트 모드에서 END 지시어에 있는 식별자의 목적은 무엇인가?
+    정답: 프로그램의 진입점(Entry Point) 지정
+
+21. What is the purpose of the PROTO directive?
+    PROTO 지시어의 목적은 무엇인가?
+    정답: 외부 또는 다른 곳에 정의된 프로시저의 프로토타입을 미리 선언하여 안전하게 호출할 수 있도록 함
+
+22. (True/False): An Object file is produced by the Linker.
+    (참/거짓): 오브젝트 파일은 링커에 의해 생성된다.
+    정답: False (거짓)
+
+23. (True/False): A Listing file is produced by the Assembler.
+    (참/거짓): 리스팅 파일은 어셈블러에 의해 생성된다.
+    정답: True (참)
+
+24. (True/False): A link library is added to a program just before producing an Executable file.
+    (참/거짓): 링크 라이브러리는 실행 파일이 생성되기 직전에 프로그램에 추가된다.
+    정답: True (참)
+
+25. Which data directive creates a 32-bit signed integer variable?
+    32비트 부호 있는 정수 변수를 생성하는 데이터 지시어는 무엇인가?
+    정답: SDWORD
+
+26. Which data directive creates a 16-bit signed integer variable?
+    16비트 부호 있는 정수 변수를 생성하는 데이터 지시어는 무엇인가?
+    정답: SWORD
+
+27. Which data directive creates a 64-bit unsigned integer variable?
+    64비트 부호 없는 정수 변수를 생성하는 데이터 지시어는 무엇인가?
+    정답: QWORD
+
+28. Which data directive creates an 8-bit signed integer variable?
+    8비트 부호 있는 정수 변수를 생성하는 데이터 지시어는 무엇인가?
+    정답: SBYTE
+
+29. Which data directive creates a 10-byte packed BCD variable?
+    10바이트 팩된 BCD 변수를 생성하는 데이터 지시어는 무엇인가?
+    정답: TBYTE
