@@ -1,0 +1,154 @@
+1. What will be the value of BX after the following instructions execute?
+   다음 명령어가 실행된 후 BX의 값은 무엇입니까?
+mov bx,0FFFFh
+and bx,6Bh
+
+정답: 006Bh
+
+2. What will be the value of BX after the following instructions execute?
+   다음 명령어가 실행된 후 BX의 값은 무엇입니까?
+mov bx,91BAh
+and bx,92h
+
+정답: 0012h
+
+3. What will be the value of BX after the following instructions execute?
+   다음 명령어가 실행된 후 BX의 값은 무엇입니까?
+mov bx,0649Bh
+or bx,3Ah
+
+정답: 649Fh
+
+4. What will be the value of BX after the following instructions execute?
+   다음 명령어가 실행된 후 BX의 값은 무엇입니까?
+mov bx,029D6h
+xor bx,8181h
+
+정답: A857h
+
+5. What will be the value of EBX after the following instructions execute?
+   다음 명령어가 실행된 후 EBX의 값은 무엇입니까?
+mov ebx,0AFAF649Bh
+or ebx,3A219604h
+
+정답: BFBFFA9Fh
+
+6. What will be the value of RBX after the following instructions execute?
+   다음 명령어가 실행된 후 RBX의 값은 무엇입니까?
+mov rbx,0AFAF649Bh
+xor rbx,0FFFFFFFFh
+
+정답: 00000000AFAF649Bh
+
+7. In the following instruction sequence, show the resulting value of AL where indicated, in binary:
+   다음 명령어 시퀀스에서 표시된 부분의 AL 결과 값을 2진수로 나타내시오.
+mov al,01101111b
+and al,00101101b ; a. 정답: 00001101b
+mov al,6Dh
+and al,4Ah ; b. 정답: 00001000b
+mov al,00001111b
+or al,61h ; c. 정답: 01101111b
+mov al,94h
+xor al,37h ; d. 정답: 10100011b
+
+8. In the following instruction sequence, show the resulting value of AL where indicated, in
+   다음 명령어 시퀀스에서 표시된 부분의 AL 결과 값을 16진수로 나타내시오.
+hexadecimal:
+mov al,7Ah
+not al ; a. 정답: 85h
+mov al,3Dh
+and al,74h ; b. 정답: 34h
+mov al,9Bh
+or al,35h ; c. 정답: BFh
+mov al,72h
+xor al,0DCh ; d. 정답: AEh
+
+9. In the following instruction sequence, show the values of the Carry, Zero, and Sign flags
+   다음 명령어 시퀀스에서 표시된 부분의 캐리 플래그(CF), 제로 플래그(ZF), 사인 플래그(SF) 값을 나타내시오.
+where indicated:
+mov al,00001111b
+test al,00000010b ; a. 정답: CF=0 ZF=0 SF=0
+mov al,00000110b
+cmp al,00000101b ; b. 정답: CF=0 ZF=0 SF=0
+mov al,00000101b
+cmp al,00000111b ; c. 정답: CF=1 ZF=0 SF=1
+
+10. Which conditional jump instruction executes a branch based on the contents of ECX?
+    ECX 레지스터의 내용에 따라 분기(점프)를 수행하는 조건부 점프 명령어는 무엇입니까?
+
+정답: JECXZ
+
+11. How are JA and JNBE affected by the Zero and Carry flags?
+    JA 및 JNBE 명령어는 제로 플래그(ZF)와 캐리 플래그(CF)의 영향을 어떻게 받습니까?
+
+정답: CF = 0 이고 ZF = 0 일 때 분기(점프)가 실행됩니다.
+
+12. What will be the final value in EDX after this code executes?
+    이 코드가 실행된 후 EDX의 최종 값은 무엇입니까?
+ mov edx,1
+ mov eax,7FFFh
+ cmp eax,8000h
+ jl L1
+ mov edx,0
+L1:
+
+정답: 1
+
+13. What will be the final value in EDX after this code executes?
+    이 코드가 실행된 후 EDX의 최종 값은 무엇입니까?
+ mov edx,1
+ mov eax,7FFFh
+ cmp eax,8000h
+ jb L1
+ mov edx,0
+L1:
+
+정답: 1
+
+14. What will be the final value in EDX after this code executes?
+    이 코드가 실행된 후 EDX의 최종 값은 무엇입니까?
+ mov edx,1
+ mov eax,7FFFh
+ cmp eax,0FFFF8000h
+ jl L2
+ mov edx,0
+L2:
+
+정답: 0
+
+15. (True/False): The following code will jump to the label named Target.
+    (참/거짓): 다음 코드는 Target이라는 이름의 레이블로 점프합니까?
+mov eax,-30
+cmp eax,-50
+jg Target
+
+정답: True(참)
+
+16. (True/False): The following code will jump to the label named Target.
+    (참/거짓): 다음 코드는 Target이라는 이름의 레이블로 점프합니까?
+mov eax,-42
+cmp eax,26
+ja Target
+
+정답: True(참)
+
+17. What will be the value of RBX after the following instructions execute?
+    다음 명령어가 실행된 후 RBX의 값은 무엇입니까?
+mov rbx,0FFFFFFFFFFFFFFFFh
+and rbx,80h
+
+정답: 0000000000000080h
+
+18. What will be the value of RBX after the following instructions execute?
+    다음 명령어가 실행된 후 RBX의 값은 무엇입니까?
+mov rbx,0FFFFFFFFFFFFFFFFh
+and rbx,808080h
+
+정답: 0000000000808080h
+
+19. What will be the value of RBX after the following instructions execute?
+    다음 명령어가 실행된 후 RBX의 값은 무엇입니까?
+mov rbx,0FFFFFFFFFFFFFFFFh
+and rbx,80808080h
+
+정답: 0000000080808080h
