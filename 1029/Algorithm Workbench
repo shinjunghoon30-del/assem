@@ -1,0 +1,149 @@
+1. Write a sequence of shift instructions that cause AX to be sign-extended into EAX. In other words, the sign bit of AX is copied into the upper 16 bits of EAX. Do not use the CWD instruction.
+   AX의 값이 EAX로 부호 확장(sign-extend)되도록 하는 시프트(shift) 명령어 시퀀스를 작성하시오. 다시 말해, AX의 부호 비트(sign bit)가 EAX의 상위 16비트로 복사되어야 한다. (CWD 명령어는 사용하지 말 것)
+
+정답: shl eax, 16   ; AX의 값을 EAX 상위 16비트로 이동
+      sar eax, 16   ; 산술 오른쪽 시프트로 부호 비트 유지 확장
+
+2. Suppose the instruction set contained no rotate instructions. Show how you would use SHR and a conditional jump instruction to rotate the contents of the AL register 1 bit to the right.
+   명령어 집합에 회전(rotate) 명령어가 포함되어 있지 않다고 가정하자. SHR 명령어와 조건 분기(conditional jump) 명령어를 사용하여 AL 레지스터의 내용을 오른쪽으로 1비트 회전(rotate 1 bit to the right)하는 방법을 보여라.
+
+정답: shr al, 1      ; 오른쪽으로 1비트 시프트 (밀려난 비트는 Carry Flag에 저장)
+      jnc skip       ; Carry Flag가 0이면 건너뜀
+      or al, 80h     ; Carry Flag가 1이면 최상위 비트(Bit 7)를 1로 세팅
+      skip:
+
+3. Write a logical shift instruction that multiplies the contents of EAX by 16.
+   EAX의 내용에 16을 곱하는 논리 시프트(logical shift) 명령어를 작성하시오.
+
+정답: shl eax, 4     ; EAX * 2^4 (16)
+
+4. Write a logical shift instruction that divides EBX by 4.
+   EBX를 4로 나누는 논리 시프트 명령어를 작성하시오.
+
+정답: shr ebx, 2     ; EBX / 2^2 (4)
+
+5. Write a single rotate instruction that exchanges the high and low halves of the DL register.
+   DL 레지스터의 상위 반과 하위 반(high and low halves, 4비트씩)을 서로 교환하는 단일 회전 명령어를 작성하시오.
+
+정답: ror dl, 4      ; 또는 rol dl, 4
+
+6. Write a single SHLD instruction that shifts the highest bit of the AX register into the lowest bit position of DX and shifts DX one bit to the left.
+   AX 레지스터의 최상위 비트(highest bit)를 DX의 최하위 비트(lowest bit) 위치로 시프트하고, DX를 왼쪽으로 1비트 시프트하는 단일 SHLD 명령어를 작성하시오.
+
+정답: shld dx, ax, 1
+
+7. Write a sequence of instructions that shift three memory bytes to the right by 1 bit position. Use the following test data:
+   3바이트 크기의 메모리를 오른쪽으로 1비트 시프트하는 명령어 시퀀스를 작성하시오. 다음 테스트 데이터를 사용하라:
+byteArray BYTE 81h,20h,33h
+
+정답: shr byteArray + 2, 1   ; 가장 높은 주소의 바이트부터 오른쪽 시프트
+      rcr byteArray + 1, 1   ; Carry Flag를 이용해 다음 바이트로 비트 전달
+      rcr byteArray, 1       ; 가장 낮은 주소 바이트로 비트 전달
+
+8. Write a sequence of instructions that shift three memory words to the left by 1 bit position. Use the following test data:
+   3워드(word, 16비트) 크기의 메모리를 왼쪽으로 1비트 시프트하는 명령어 시퀀스를 작성하시오. 다음 테스트 데이터를 사용하라:
+wordArray WORD 810Dh, 0C064h,93ABh
+
+정답: shl wordArray, 1       ; 가장 낮은 주소의 워드부터 왼쪽 시프트
+      rcl wordArray + 2, 1   ; Carry Flag를 이용해 다음 워드로 비트 전달
+      rcl wordArray + 4, 1   ; 가장 높은 주소 워드로 비트 전달
+
+9. Write instructions that multiply 5 by 3 and store the result in a 16-bit variable val1.
+   -5에 3을 곱하고 그 결과를 16비트 변수 val1에 저장하는 명령어를 작성하시오.
+
+정답: mov ax, -5
+      mov bx, 3
+      imul bx                ; DX:AX = -15 (FFFF FFF1h)
+      mov val1, ax           ; val1 = FFF1h (-15)
+
+10. Write instructions that divide 276 by 10 and store the result in a 16-bit variable val1.
+    -276을 10으로 나누고 그 결과를 16비트 변수 val1에 저장하는 명령어를 작성하시오.
+
+정답: mov ax, -276
+      cwd                    ; AX를 DX:AX로 부호 확장 (-276)
+      mov bx, 10
+      idiv bx                ; AX = 몫 (-27 = FFE5h), DX = 나머지 (-6)
+      mov val1, ax           ; val1 = FFE5h
+
+11. Implement the following C++ expression in assembly language, using 32-bit unsigned operands:
+    32비트 부호 없는 피연산자(unsigned operands)를 사용하여 다음 C++ 식을 어셈블리 언어로 구현하시오:
+val1 = (val2 * val3) / (val4 - 3)
+
+정답: mov eax, val2
+      mov ebx, val3
+      mul ebx                ; EDX:EAX = val2 * val3
+
+      mov ecx, val4
+      sub ecx, 3             ; ECX = val4 - 3
+
+      div ecx                ; EAX = (val2 * val3) / (val4 - 3)
+      mov val1, eax
+
+12. Implement the following C++ expression in assembly language, using 32-bit signed operands:
+    32비트 부호 있는 피연산자(signed operands)를 사용하여 다음 C++ 식을 어셈블리 언어로 구현하시오:
+val1 = (val2 / val3) * (val1 + val2)
+
+정답: mov eax, val2
+      cdq                    ; EAX를 EDX:EAX로 부호 확장
+      idiv val3              ; EAX = val2 / val3
+
+      mov ebx, val1
+      add ebx, val2          ; EBX = val1 + val2
+
+      imul ebx               ; EAX = (val2 / val3) * (val1 + val2)
+      mov val1, eax
+
+13. Write a procedure that displays an unsigned 8-bit binary value in decimal format. Pass the binary value in AL. The input range is limited to 0 to 99, decimal. The only procedure you
+    can call from the book’s link library is WriteChar. The procedure should contain approximately eight instructions. Here is a sample call:
+   부호 없는 8비트 이진 값을 10진수 형식으로 출력하는 프로시저(procedure)를 작성하시오. 이진 값은 AL 레지스터로 전달된다. 입력 범위는 십진수 0부터 99까지로 제한된다.
+   교재의 링크 라이브러리에서 호출할 수 있는 유일한 프로시저는 WriteChar이다. 프로시저는 약 8개의 명령어 포함해야 한다. 다음은 호출 예시이다:
+mov al,65 ; range limit: 0 to 99
+call showDecimal8
+
+정답: showDecimal8 PROC
+      mov ah, 0           ; AX = 00ALh
+      mov bl, 10
+      div bl              ; AL = 십의 자리(몫), AH = 일의 자리(나머지)
+   
+      add al, '0'         ; ASCII 문자로 변환
+      call WriteChar      ; 십의 자리 출력
+   
+      mov al, ah          ; 일의 자리를 AL로 이동
+      add al, '0'         ; ASCII 문자로 변환
+      call WriteChar      ; 일의 자리 출력
+      ret
+      showDecimal8 ENDP
+
+14. Challenge: Suppose AX contains 0072h and the Auxiliary Carry flag is set as a result of adding two unknown ASCII decimal digits. Use the Intel 64 and IA-32 Instruction
+    Set Reference to determine what output the AAA instruction would produce. Explain your answer.
+    [도전 과제] AX에 0072h가 들어있고 두 개의 알 수 없는 ASCII 10진수 숫자를 더한 결과로 보조 캐리 플래그(Auxiliary Carry flag)가 설정되었다고 가정하자.
+    Intel 64 및 IA-32 명령어 집합 참조 문헌을 참고하여 AAA 명령어가 어떤 출력을 생성하는지 확인하고, 답을 설명하시오.
+
+
+정답:: AAA(ASCII Adjust after Addition) 명령어는 AL의 하위 4비트가 9보다 크거나 보조 캐리 플래그(AF)가 1로 설정되어 있을 때 다음과 같이 작동
+      AL에 6을 더한다: 72h + 6 = 78h
+      AH 값을 1 증가: 00h -> 01h
+      AL의 상위 4비트를 0으로 마스킹: 78h & 0Fh = 08h
+      따라서 최종 AX 값은 0108h (또는 AL = 08h, AH = 01h)
+
+15. Challenge: Using only SUB, MOV, and AND instructions, show how to calculate x = n mod y, assuming that you are given the values of n and y.
+    You can assume that n is any 32-bit unsigned integer, and y is a power of 2.
+    [도전 과제] $n$과 $y$ 값이 주어진다고 가정할 때, SUB, MOV, AND 명령어만을 사용하여 x = n mod y를 계산하는 방법을 보여라. n은 임의의 32비트 부호 없는 정수이고, y는 2의 거듭제곱(2^k)이라고 가정할 수 있다.
+
+정답: mov eax, y
+      sub eax, 1             ; EAX = y - 1 (비트 마스크 생성)
+      mov ebx, n
+      and ebx, eax           ; EBX = n AND (y - 1) = n mod y
+      mov x, ebx
+
+16. Challenge: Using only SAR, ADD, and XOR instructions (but no conditional jumps), write code that calculates the absolute value of the signed integer in the EAX register. Hints: A
+    number can be negated by adding 1 to it and then forming its one’s complement. Also, if you XOR an integer with all 1s, its 1s are reversed.
+    On the other hand, if you XOR an integer with all zeros, the integer is unchanged.
+    [도전 과제] SAR, ADD, XOR 명령어만을 사용하고(조건 분기는 사용하지 않음), EAX 레지스터에 있는 부호 있는 정수의 절댓값(absolute value)을 계산하는 코드를 작성하시오.
+    (힌트: 어떤 수에 $-1$을 더한 뒤 1의 보수(1's complement)를 취하면 부호를 반전시킬 수 있다. 또한, 정수를 모두 1인 비트들과 XOR하면 모든 비트가 반전된다.
+           반면, 모두 0인 비트들과 XOR하면 정수는 변경되지 않는다.) 
+
+정답: mov ebx, eax
+      sar ebx, 31            ; EAX가 양수/0이면 EBX = 00000000h, 음수이면 EBX = FFFFFFFFh (-1)
+      xor eax, ebx           ; 음수인 경우 비트 반전 (1의 보수)
+      sub eax, ebx           ; 음수인 경우 -(-1) = +1 연산 수행 (2의 보수 완성)
