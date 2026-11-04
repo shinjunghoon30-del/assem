@@ -1,0 +1,110 @@
+1. In the following code sequence, show the value of AL after each shift or rotate instruction has executed:
+   다음 코드 시퀀스에서, 각 시프트(shift) 또는 로테이트(rotate) 명령어가 실행된 후 AL 레지스터의 값을 나타내시오:
+mov al,0D4h = 1101 0100b
+shr al,1 ; a. 1101 0100  0110 1010b = 6Ah
+mov al,0D4h
+sar al,1 ; b. 1101 0100 → 1110 1010b = EAh
+mov al,0D4h
+sar al,4 ; c. 1101 0100 → 1111 1101b = FDh
+mov al,0D4h
+rol al,1 ; d. 1101 0100 → 1010 1001b = A9h
+
+2. In the following code sequence, show the value of AL after each shift or rotate instruction has executed:
+   다음 코드 시퀀스에서, 각 시프트 또는 로테이트 명령어가 실행된 후 AL 레지스터의 값을 나타내시오:
+mov al,0D4h = 1101 0100b
+ror al,3 ; a. 1101 0100 → 1001 1010b = 9Ah
+mov al,0D4h
+rol al,7 ; b. 1101 0100 → 0110 1010b = 6Ah
+stc
+mov al,0D4h
+rcl al,1 ; c. [CF=1, AL=1101 0100] → [CF=1, AL=1010 1001] = A9h
+stc
+mov al,0D4h
+rcr al,3 ; d. [CF=1, AL=1101 0100] → 3$회 회전 후 AL = 1111 1010 = FAh
+
+3. What will be the contents of AX and DX after the following operation?
+   다음 연산이 수행된 후 AX와 DX 레지스터의 내용은 무엇이 되겠는가?
+mov dx,0
+mov ax,222h
+mov cx,100h
+mul cx
+
+정답: AX = 2200h, DX = 0022h
+
+4. What will be the contents of AX after the following operation?
+   다음 연산이 수행된 후 AX 레지스터의 내용은 무엇이 되겠는가?
+mov ax,63h
+mov bl,10h
+div bl
+
+정답: AX = 0306h   
+
+5. What will be the contents of EAX and EDX after the following operation?
+   다음 연산이 수행된 후 EAX와 EDX 레지스터의 내용은 무엇이 되겠는가?
+mov eax,123400h
+mov edx,0
+mov ebx,10h
+div ebx
+
+정답: EAX = 00012340h, EDX = 00000000h
+
+6. What will be the contents of AX and DX after the following operation?
+   다음 연산이 수행된 후 AX와 DX 레지스터의 내용은 무엇이 되겠는가?
+mov ax,4000h
+mov dx,500h
+mov bx,10h
+div bx
+
+정답: 나눗셈 오버플로우 에러 (Divide Overflow Error / CPU Exception) 발생
+
+7. What will be the contents of BX after the following instructions execute?
+   다음 명령어들이 실행된 후 BX 레지스터의 내용은 무엇이 되겠는가?
+mov bx,5
+stc
+mov ax,60h
+adc bx,ax
+
+정답: BX = 0066h
+
+8. Describe the output when the following code executes in 64-bit mode:
+   다음 코드가 64비트 모드에서 실행될 때의 출력을 서술하시오:
+.data
+dividend_hi QWORD 00000108h
+dividend_lo QWORD 33300020h
+divisor QWORD 00000100h
+.code
+mov rdx,dividend_hi
+mov rax,dividend_lo
+div divisor
+
+정답: RAX = 0000000000000108h, RDX = 0000000000000020h
+
+9. The following program is supposed to subtract val2 from val1. Find and correct all logic errors (CLC clears the Carry flag):
+   다음 프로그램은 val1에서 val2를 빼기 위한 것이다. 모든 논리 오류(logic errors)를 찾아 수정하시오 (CLC는 캐리 플래그(Carry flag)를 클리어함):
+.data
+val1 QWORD 20403004362047A1h
+val2 QWORD 055210304A2630B2h
+result QWORD 0
+.code                                       정답:
+mov cx,8 ; loop counter                           mov cx, 8
+mov esi,val1 ; set index to start                 mov esi, OFFSET val1
+mov edi,val2                                      mov edi, OFFSET val2
+clc ; clear Carry flag                            mov ebx, OFFSET result
+top:                                              clc
+mov al,BYTE PTR[esi] ; get first number           top:
+sbb al,BYTE PTR[edi] ; subtract second            mov al, BYTE PTR[esi]
+mov BYTE PTR[esi],al ; store the result           sbb al, BYTE PTR[edi]
+dec esi                                           mov BYTE PTR[ebx], al
+loop top                                          inc esi
+                                                  inc edi
+                                                  inc ebx
+                                                  loop top
+
+10. What will be the hexadecimal contents of RAX after the following instructions execute in 64-bit mode?
+    다음 명령어들이 64비트 모드에서 실행된 후 RAX의 16진수 내용은 무엇이 되겠는가?
+.data
+multiplicand QWORD 0001020304050000h
+.code
+imul rax,multiplicand, 4
+
+정답: RAX = 0004080C10140000h
