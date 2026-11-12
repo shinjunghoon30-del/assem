@@ -5,11 +5,11 @@
 
 - 방향 플래그 (Direction Flag): CLD를 통해 플래그를 클리어하면 인덱스(ESI, EDI)가 증가(순방향)하고, STD로 세트하면 감소(역방향)합니다.
 ### 주요 명령어 목록
-- MOVSB / MOVSW / MOVSD: ESI가 가리키는 메모리 데이터를 EDI가 가리키는 곳으로 복사
-- CMPSB / CMPSW / CMPSD: 두 메모리 위치의 값을 비교하며, REPE(같을 동안 반복) 등과 함께 자주 쓰임
-- SCASB / SCASW / SCASD: 누산기(AL, AX, EAX)의 값과 EDI가 가리키는 메모리 값을 비교하여 특정 문자를 검색
-- STOSB / STOSW / STOSD: 누산기의 값을 EDI가 가리키는 메모리에 저장(채우기)
-- LODSB / LODSW / LODSD: ESI가 가리키는 메모리 값을 누산기에 로드
+- MOVSB / MOVSW / MOVSD : ESI가 가리키는 메모리 데이터를 EDI가 가리키는 곳으로 복사
+- CMPSB / CMPSW / CMPSD : 두 메모리 위치의 값을 비교하며, REPE(같을 동안 반복) 등과 함께 자주 쓰임
+- SCASB / SCASW / SCASD : 누산기(AL, AX, EAX)의 값과 EDI가 가리키는 메모리 값을 비교하여 특정 문자를 검색
+- STOSB / STOSW / STOSD : 누산기의 값을 EDI가 가리키는 메모리에 저장(채우기)
+- LODSB / LODSW / LODSD : ESI가 가리키는 메모리 값을 누산기에 로드
 
 ## 2. Irvine32 라이브러리 주요 문자열 프로시저
 널 문자(\0)로 끝나는 문자열을 조작하기 위해 Irvine32 라이브러리에서 제공하는 프로시저들
