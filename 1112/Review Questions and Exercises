@@ -1,0 +1,70 @@
+1. Which Direction flag setting causes index registers to move backward through memory when executing string primitives?
+   문자열 처리 명령어(string primitives)를 실행할 때, 어떤 방향 플래그(Direction flag) 설정이 인덱스 레지스터가 메모리를 거쳐 역방향(backward)으로 이동하게 만듭니까?
+
+정답: 방향 플래그를 세트(DF = 1, STD 명령어 사용)합니다.
+
+2. When a repeat prefix is used with STOSW, what value is added to or subtracted from the index register?
+   STOSW 명령어와 함께 반복 접두사(repeat prefix)가 사용될 때, 인덱스 레지스터에 더해지거나 빼지는 값은 얼마입니까?
+
+정답: 방향 플래그가 클리어(0)인 경우 2가 더해지고, 세트(1)인 경우 2가 빼집니다.
+                        
+3. In what way is the CMPS instruction ambiguous?
+   CMPS 명령어는 어떤 점에서 모호(ambiguous)합니까?                        
+
+정답: 비교할 데이터의 크기(바이트, 워드, 더블워드 등)나 크기 접미사(CMPSB, CMPSW, CMPSD)가 명시되지 않으면, 어셈블러가 연산할 크기를 판단할 수 없기 때문입니다.
+                        
+4. When the Direction flag is clear and SCASB has found a matching character, where does EDI point?
+   방향 플래그가 클리어(clear)되어 있고 SCASB가 일치하는 문자를 찾았을 때, EDI는 어디를 가리키게 됩니까?                       
+
+정답: 일치하는 문자 바로 다음 바이트를 가리킵니다.
+                        
+5. When scanning an array for the first occurrence of a particular character, which repeat prefix would be best?
+   배열에서 특정 문자가 처음으로 나타나는 위치를 스캔할 때, 가장 적절한 반복 접두사는 무엇입니까?
+
+정답: REPNE (또는 REPNZ - 같지 않는 동안 반복)
+                        
+6. What Direction flag setting is used in the Str_trim procedure from Section 9.3?
+   섹션 9.3의 Str_trim 프로시저에서는 어떤 방향 플래그 설정이 사용됩니까?
+
+정답: 세트 (DF = 1, STD 사용)
+                        
+7. Why does the Str_trim procedure from Section 9.3 use the JNE instruction?
+   섹션 9.3의 Str_trim 프로시저는 왜 JNE 명령어를 사용합니까?
+
+정답: 검사 중인 문자가 지정된 대상 문자(또는 공백/널 문자)와 일치하지 않는(Not Equal) 최초의 위치를 찾아내기 위해서입니다.
+                        
+8. What happens in the Str_ucase procedure from Section 9.3 if the target string contains a digit?
+   대상 문자열(target string)에 숫자가 포함되어 있는 경우, 섹션 9.3의 Str_ucase 프로시저에서는 어떤 일이 발생합니까?
+
+정답: 숫자의 ASCII 값은 알파벳 소문자 범위에 해당하지 않으므로, 대문자 변환 로직의 영향을 받지 않고 그대로 유지됩니다.
+                        
+9. If the Str_length procedure from Section 9.3 used SCASB, which repeat prefix would be most appropriate?
+   섹션 9.3의 Str_length 프로시저가 SCASB를 사용한다면, 어떤 반복 접두사가 가장 적절합니까?
+
+정답: REPNE (또는 REPNZ)
+                        
+10. If the Str_length procedure from Section 9.3 used SCASB, how would it calculate and return the string length?
+    섹션 9.3의 Str_length 프로시저가 SCASB를 사용한다면, 문자열 길이를 어떻게 계산하고 반환하겠습니까?
+
+정답: 초기 EDI 주소(또는 카운터 초기값)와 검색이 끝난 후의 EDI 주소(또는 카운터 최종값)의 차이를 계산하여 널 문자를 제외한 문자열의 길이를 구합니다.
+                        
+11. What is the maximum number of comparisons needed by the binary search algorithm when an array contains 1,024 elements?
+    배열에 1,024개의 원소가 있을 때, 이진 탐색(binary search) 알고리즘에 필요한 최대 비교 횟수는 얼마입니까?
+
+정답: 10회 ($\log_2 1024 = 10$)
+                        
+12. In the FillArray procedure from the Binary Search example in Section 9.5, why must the Direction flag be cleared by the CLD instruction?
+    섹션 9.5의 이진 탐색 예제에 있는 FillArray 프로시저에서는 왜 CLD 명령어로 방향 플래그를 클리어(clear)해야 합니까?
+
+정답: 배열을 채우는 동안 인덱스 레지스터가 메모리 주소 순서대로 전방향(forward, 증가하는 방향)으로 진행하도록 보장하기 위해서입니다.
+                        
+13. In the BinarySearch procedure from Section 9.5, why could the statement at label L2 be removed without affecting the outcome?
+    섹션 9.5의 BinarySearch 프로시저에서, 레이블 L2에 있는 문장은 왜 결과에 영향을 주지 않고 제거될 수 있습니까?
+
+정답: 해당 비교 또는 분기 로직이 이미 다른 상/하한선 검사(first > last) 조건에 포함되어 있거나 중복되기 때문에 탐색 결과에 영향을 주지 않습니다.
+                        
+14. In the BinarySearch procedure from Section 9.5, how might the statement at label L4 be eliminated?
+    섹션 9.5의 BinarySearch 프로시저에서, 레이블 L4에 있는 문장은 어떻게 없애거나 대체할 수 있습니까?
+
+정답: 명시적인 점프(JMP) 문장을 사용하는 대신 조건부 점프 흐름을 재구성하거나 낙하(fall-through) 구조를 활용하여 불필요한 레이블과 점프를 제거할 수 있습니다.
+                        
