@@ -1,0 +1,64 @@
+10.7.1 Short Answer
+
+1. What is the purpose of the STRUCT directive?
+   STRUCT 지시어(directive)의 목적은 무엇인가요?
+
+정답: 서로 다른 데이터 타입의 필드를 묶어 사용자 정의 구조체 템플릿을 정의하기 위함
+          
+2. Assume that the following structure has been defined:
+   다음과 같이 구조체(structure)가 정의되어 있다고 가정해 봅시다.
+
+RentalInvoice STRUCT
+    invoiceNum BYTE 5 DUP(' ')
+    dailyPrice WORD ?
+    daysRented WORD ?
+RentalInvoice ENDS
+
+   State whether or not each of the following declarations is valid:
+   다음 각 선언(declaration)이 유효한지(valid) 아닌지 밝히세요.
+
+a. rentals RentalInvoice <> — 유효함 (Valid): 모든 필드에 기본값(초기값)을 사용하여 변수를 선언하는 올바른 문법입니다.
+b. RentalInvoice rentals <> — 유효하지 않음 (Invalid): MASM 구조체 선언 순서가 잘못되었습니다. <변수명> <구조체명> <초기값> 순서여야 합니다.
+c. march RentalInvoice <'12345',10,0> — 유효함 (Valid): 세 필드(invoiceNum, dailyPrice, daysRented)에 알맞은 타입의 값을 순서대로 지정했습니다.
+d. RentalInvoice <,10,0> — 유효하지 않음 (Invalid): 구조체 변수의 이름(식별자)이 빠져 있습니다.
+e. current RentalInvoice <,15,0,0> — 유효하지 않음 (Invalid): 구조체 필드는 3개인데 초기값 인수가 4개(15, 0, 0 + 첫 번째 비어있는 값 포함 총 4개) 주어져 개수가 맞지 않습니다.
+
+3. (True/False): A macro cannot contain data definitions.
+   (참/거짓): 매크로(macro)에는 데이터 정의(data definitions)가 포함될 수 없다.
+
+정답: 거짓 (False)
+
+4. What is the purpose of the LOCAL directive?
+   LOCAL 지시어의 목적은 무엇인가요?
+
+정답: 매크로 내부에서 사용하는 지역 레이블(심벌)을 선언해 매크로 확장 시 이름 충돌(중복 정의)을 방지하기 위함
+
+5. Which directive displays a message on the console during the assembly step?
+   어셈블(assembly) 단계 동안 콘솔에 메시지를 표시하는 지시어는 무엇인가요?
+
+정답: ECHO
+
+6. Which directive marks the end of a conditional block of statements?
+   조건부 문장 블록(conditional block of statements)의 끝을 표시하는 지시어는 무엇인가요?
+
+정답: ENDIF
+
+7. List all the relational operators that can be used in constant boolean expressions.
+   상수 불리언 표현식(constant boolean expressions)에서 사용할 수 있는 모든 관계 연산자(relational operators)를 나열하세요.
+
+정답: LT, LE, GT, GE, EQ, NE
+
+8. What is the purpose of the & operator in a macro definition?
+   매크로 정의에서 & 연산자의 목적은 무엇인가요?
+
+정답: 매크로 매개변수를 주변 텍스트/기호와 구분해 결합(치환)하기 위함
+
+9. What is the purpose of the ! operator in a macro definition?
+   매크로 정의에서 ! 연산자의 목적은 무엇인가요?
+
+정답: 뒤에 오는 단일 문자를 특수 의미 없이 일반 리터럴 문자로 취급하게 하기 위함
+
+10. What is the purpose of the % operator in a macro definition?
+    매크로 정의에서 % 연산자의 목적은 무엇인가요?
+
+정답: 뒤에 오는 상수 표현식(또는 수식/매크로 함수)을 먼저 계산(평가)한 결과값을 전달하기 위함
