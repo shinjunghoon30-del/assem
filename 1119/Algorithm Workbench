@@ -1,0 +1,217 @@
+1. Create a structure named SampleStruct containing two fields: field1, a single 16-bit WORD, and field2, an array of 20 32-bit DWORDs. The initial values of the fields may be left undefined.
+   field1(16비트 WORD 1개)과 field2(32비트 DWORD 20개 배열) 두 개의 필드를 포함하는 SampleStruct라는 이름의 구조체를 생성하세요. 필드의 초기값은 정의되지 않은 상태(?)로 두어도 됩니다.
+
+정답: SampleStruct STRUCT
+         field1 WORD ?
+         field2 DWORD 20 DUP(?)
+      SampleStruct ENDS
+
+2. Write a statement that retrieves the wHour field of a SYSTEMTIME structure.
+   SYSTEMTIME 구조체의 wHour 필드를 가져오는 문장(statement)을 작성하세요.
+
+정답: movzx eax, sysTime.wHour
+
+3. Using the following Triangle structure, declare a structure variable and initialize its vertices to (0,0), (5, 0), and (7,6):
+   다음 Triangle 구조체를 사용하여 구조체 변수를 선언하고, 꼭짓점(vertices)을 (0,0), (5, 0), (7,6)으로 초기화하세요.
+
+Triangle STRUCT
+        Vertex1 COORD <>
+        Vertex2 COORD <>
+        Vertex3 COORD <>
+Triangle ENDS
+
+정답: tri1 Triangle < <0,0>, <5,0>, <7,6> >
+
+4. Declare an array of Triangle structures. Write a loop that initializes Vertex1 of each triangle to random coordinates in the range (0...10, 0...10).
+   Triangle 구조체 배열을 선언하세요. 각 삼각형의 Vertex1을 (0...10, 0...10) 범위의 난수 좌표로 초기화하는 루프를 작성하세요.
+
+정답: NUM_TRIANGLES = 10
+      .data
+      triArray Triangle NUM_TRIANGLES DUP(<>)
+      
+      .code
+         mov ecx, NUM_TRIANGLES
+         mov esi, OFFSET triArray
+      L1:
+         mov eax, 11
+         call RandomRange
+         mov (Triangle PTR [esi]).Vertex1.X, ax
+      
+         mov eax, 11
+         call RandomRange
+         mov (Triangle PTR [esi]).Vertex1.Y, ax
+      
+         add esi, TYPE Triangle
+         loop L1
+
+5. Write a macro named mPrintChar that displays a single character on the screen. It should have two parameters: this first specifies the character to be displayed and the second specifies
+   how many times the character should be repeated. Here is a sample call:
+   화면에 단일 문자를 출력하는 mPrintChar라는 이름의 매크로를 작성하세요. 두 개의 매개변수를 가져야 하며, 첫 번째는 출력할 문자를 지정하고
+   두 번째는 해당 문자를 반복할 횟수를 지정합니다. 호출 예시는 다음과 같습니다.
+
+         mPrintChar 'X',20
+
+정답: mPrintChar MACRO charVal:REQ, count:REQ
+         LOCAL L1
+         push ecx
+         push eax
+         mov ecx, count
+         mov al, charVal
+      L1:
+         call WriteChar
+         loop L1
+         pop eax
+         pop ecx
+      ENDM
+       
+
+6. Write a macro named mGenRandom that generates a random integer between 0 and n - 1. Let n be the only parameter.
+   0과 n - 1 사이의 난수 정수를 생성하는 mGenRandom이라는 이름의 매크로를 작성하세요. n을 유일한 매개변수로 두세요.
+
+정답: mGenRandom MACRO n:REQ
+         push ecx
+         mov eax, n
+         call RandomRange
+         pop ecx
+      ENDM
+
+7. Write a macro named mPromptInteger that displays a prompt and inputs an integer from the user. Pass it a string literal and the name of a doubleword variable. Sample call:
+   프롬프트를 표시하고 사용자로부터 정수를 입력받는 mPromptInteger라는 이름의 매크로를 작성하세요. 문자열 리터럴과 더블워드(DWORD) 변수 이름을 인수로 전달하세요. 호출 예시:
+
+.data
+minVal DWORD ?
+.code
+mPromptInteger "Enter the minimum value", minVal
+
+정답: mPromptInteger MACRO prompt:REQ, destVal:REQ
+         push edx
+         push eax
+         mWrite prompt
+         call ReadInt
+         mov destVal, eax
+         pop eax
+         pop edx
+      ENDM
+
+8. Write a macro named mWriteAt that locates the cursor and writes a string literal to the console window. Suggestion: Invoke the mGotoxy and mWrite macros from the book’s macro library.
+   커서 위치를 잡고 콘솔 창에 문자열 리터럴을 출력하는 mWriteAt이라는 이름의 매크로를 작성하세요. 제안: 교재 매크로 라이브러리의 mGotoxy와 mWrite 매크로를 호출하세요.
+
+정답: mWriteAt MACRO colVal:REQ, rowVal:REQ, strLit:REQ
+         mGotoxy colVal, rowVal
+         mWrite strLit
+      ENDM
+
+9. Show the expanded code produced by the following statement that invokes the mWriteString macro from Section 10.2.5:
+   10.2.5절의 mWriteString 매크로를 호출하는 다음 문장에 의해 생성되는 확장 코드(expanded code)를 보이세요.
+
+        mWriteStr namePrompt
+
+정답: push edx
+      mov edx, OFFSET namePrompt
+      call WriteString
+      pop edx
+
+10. Show the expanded code produced by the following statement that invokes the mReadString macro from Section 10.2.5:
+    10.2.5절의 mReadString 매크로를 호출하는 다음 문장에 의해 생성되는 확장 코드를 보이세요.
+
+        mReadStr customerName
+
+정답: push ecx
+      push edx
+      mov edx, OFFSET customerName
+      mov ecx, SIZEOF customerName
+      call ReadString
+      pop edx
+      pop ecx
+
+11. Write a macro named mDumpMemx that receives a single parameter, the name of a variable. Your macro must call the mDumpMem macro from the book’s library, passing it the variable’s
+    offset, number of units, and unit size. Demonstrate a call to the mDumpMemx macro.
+    단일 매개변수(변수 이름)를 받는 mDumpMemx라는 이름의 매크로를 작성하세요. 이 매크로는 교재 라이브러리의 mDumpMem 매크로를 호출하면서 해당 변수의 오프셋, 단위 개수(number of units), 단위 크기(unit size)를 전달해야 합니다.
+    mDumpMemx 매크로의 호출 예시도 보여주세요.
+
+정답: mDumpMemx MACRO varName:REQ
+        mDumpMem OFFSET varName, LENGTHOF varName, TYPE varName
+      ENDM
+
+      mDumpMemx myArray
+
+12. Show an example of a macro parameter having a default argument initializer.
+    기본 인수 초기값(default argument initializer)을 가지는 매크로 매개변수의 예시를 보이세요.
+
+정답: mShowMsg MACRO msg:="Default message"
+         mWrite msg
+      ENDM
+
+13. Write a short example that uses the IF, ELSE, and ENDIF directives.
+    IF, ELSE, ENDIF 지시어를 사용하는 짧은 예시를 작성하세요.
+
+정답: DEBUG_MODE = 1
+
+      IF DEBUG_MODE EQ 1
+         mWrite "Debug ON"
+      ELSE
+         mWrite "Debug OFF"
+      ENDIF
+
+14. Write a statement using the IF directive that checks the value of the constant macro parameter Z; if Z is less than zero, display a message during assembly indicating that Z is invalid.
+    IF 지시어를 사용하여 상수 매크로 매개변수 Z의 값을 검사하는 문장을 작성하세요. Z가 0보다 작으면 어셈블 과정에서 Z가 유효하지 않다는 메시지를 표시하세요.
+
+정답: IF Z LT 0
+         ECHO Error: Z is invalid (less than zero).
+      ENDIF
+
+15. Write a short macro that demonstrates the use of the & operator when the macro parameter is embedded in a literal string.
+    매크로 매개변수가 리터럴 문자열 안에 포함될 때 & 연산자의 사용법을 보여주는 짧은 매크로를 작성하세요.
+
+정답: mShowVarName MACRO varName:REQ
+         mWrite "Variable name is &varName"
+      ENDM
+
+16. Assume the following mLocate macro definition:
+    다음과 같은 mLocate 매크로 정의가 있다고 가정해 봅시다.
+
+    mLocate MACRO xval,yval
+        IF xval LT 0         ;; xval < 0?
+              EXITM          ;; if so, exit
+        ENDIF
+        IF yval LT 0 ;; yval < 0?
+              EXITM ;; if so, exit
+        ENDIF
+
+        mov bx,0 ;; video page 0
+        mov ah,2 ;; locate cursor
+        mov dh,yval
+        mov dl,xval
+         int 10h ;; call the BIOS
+        ENDM
+
+    Show the source code generated by the preprocessor when the macro is expanded by each of
+    the following statements:
+    다음 각 문장에 의해 매크로가 확장될 때 전처리기(preprocessor)가 생성하는 소스 코드를 보이세요.
+
+  .data
+  row BYTE 15
+  col BYTE 60
+  .code
+  mLocate -2,20
+  mLocate 10,20
+  mLocate col,row
+
+정답: 
+
+   mLocate -2,20:
+   mLocate 10,20:
+
+         mov bx,0
+         mov ah,2
+         mov dh,20
+         mov dl,10
+         int 10h
+
+    mLocate col,row:
+
+           mov bx,0
+           mov ah,2
+           mov dh,row
+           mov dl,col
+           int 10h
